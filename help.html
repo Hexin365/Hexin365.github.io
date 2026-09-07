@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TextCalc（文本表达式计算器）帮助手册</title>
+<meta name="description" content="TextCalc 帮助手册：实时计算、链式表达式、变量系统、金额大写转换、一键求和等功能的完整使用说明与快捷键速查。">
+<meta name="theme-color" content="#2563eb">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============ 设计令牌 ============ */
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #dbeafe;
+  --primary-glow: rgba(37, 99, 235, 0.12);
+  --success: #059669;
+  --success-light: #d1fae5;
+  --warning: #d97706;
+  --warning-light: #fef3c7;
+  --danger: #dc2626;
+  --danger-light: #fee2e2;
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
+  --gray-900: #0f172a;
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --text: #0f172a;
+  --text-secondary: #475569;
+  --border: #e2e8f0;
+  --border-light: #f1f5f9;
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --grad-primary: linear-gradient(135deg, #2563eb 0%, #0ea5e9 100%);
+  --grad-accent: linear-gradient(135deg, #10b981 0%, #0ea5e9 100%);
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-sm: 0 1px 2px rgba(15,23,42,0.05), 0 2px 8px rgba(15,23,42,0.05);
+  --shadow-md: 0 4px 12px rgba(37,99,235,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.08);
+  --font-sans: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Cascadia Code", "Fira Code", Consolas, "Courier New", monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --text: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --border: #334155;
+    --border-light: #1e293b;
+    --primary-light: #1e3a8a;
+    --primary-glow: rgba(37, 99, 235, 0.25);
+    --grad-primary: linear-gradient(135deg, #3b82f6 0%, #38bdf8 100%);
+    --grad-accent: linear-gradient(135deg, #10b981 0%, #38bdf8 100%);
+    --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.3);
+  }
+  .hero { background: linear-gradient(135deg, rgba(30,58,138,0.45), rgba(3,105,161,0.32) 60%, rgba(14,165,233,0.28)) !important; border-color: #334155 !important; }
+  .badge { border-color: #334155 !important; color: #94a3b8 !important; }
+  .badges .badge:first-child { background: rgba(6,78,59,0.35) !important; border-color: rgba(110,231,183,0.3) !important; color: #6ee7b7 !important; }
+  pre { background: #0f172a !important; border-color: #334155 !important; border-top-color: #2563eb !important; }
+  code { background: #1e293b !important; border-color: #334155 !important; color: #f87171 !important; }
+  .card { background: #1e293b !important; border-color: #334155 !important; }
+  .card:hover { background: #27354f !important; }
+  details { background: #1e293b !important; border-color: #334155 !important; }
+  summary { background: linear-gradient(180deg, #1e293b, #182235) !important; }
+  summary:hover { background: #27354f !important; }
+  tbody tr:nth-child(even) { background: #182235 !important; }
+  tbody tr:hover { background: #27354f !important; }
+  thead tr { background: linear-gradient(180deg, #27354f, #1e293b) !important; }
+  th { border-bottom-color: #475569 !important; }
+  td { border-bottom-color: #334155 !important; }
+  .feature-highlight { background: rgba(30,58,138,0.3) !important; border-color: #3b82f6 !important; }
+  .tip { background: rgba(6,78,59,0.3) !important; }
+  .warn { background: rgba(120,53,15,0.3) !important; }
+  .info { background: rgba(30,58,138,0.3) !important; }
+  .nav-wrap { background: rgba(15, 23, 42, 0.85) !important; border-bottom-color: #334155 !important; }
+  .toc { background: rgba(15, 23, 42, 0.95) !important; border-right-color: #334155 !important; }
+  .toc a { color: #94a3b8 !important; }
+  .toc a:hover, .toc a.active { background: #1e293b !important; color: #60a5fa !important; }
+  .btt { background: linear-gradient(135deg, #3b82f6, #38bdf8) !important; border-color: transparent !important; color: #fff !important; }
+  .section:hover { border-color: rgba(96,165,250,0.3) !important; box-shadow: 0 4px 12px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.3) !important; }
+  kbd { background: linear-gradient(180deg, #334155, #1e293b) !important; border-color: #475569 !important; color: #e2e8f0 !important; box-shadow: 0 2px 0 #0f172a !important; }
+  .tag-on { background: #065f46 !important; color: #6ee7b7 !important; }
+  .tag-off { background: #334155 !important; color: #94a3b8 !important; }
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text);
+  background: var(--bg);
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(1100px 520px at 12% -8%, rgba(37,99,235,0.07), transparent 60%),
+    radial-gradient(900px 480px at 92% 6%, rgba(14,165,233,0.05), transparent 60%),
+    radial-gradient(800px 500px at 50% 110%, rgba(16,185,129,0.05), transparent 60%);
+}
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gray-400); }
+::selection { background: var(--primary-light); color: var(--primary-dark); }
+
+/* Progress bar */
+#progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), #60a5fa);
+  z-index: 1001;
+  width: 0%;
+  transition: width 0.1s;
+}
+
+/* Navigation */
+.nav-wrap {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 64px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  transition: box-shadow 0.3s;
+}
+.nav-wrap.scrolled { box-shadow: var(--shadow-md); }
+.nav-in {
+  width: 100%;
+  max-width: 1300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 1.5em;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: 0.2px;
+}
+.nav-title {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  white-space: nowrap;
+}
+.nav-sub {
+  font-size: 0.6em;
+  font-weight: 500;
+  color: var(--gray-500);
+  letter-spacing: 0;
+}
+.nav-brand img {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+}
+.nav-ver {
+  font-size: 0.66em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #fff;
+  background: var(--grad-accent);
+  padding: 2px 10px;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(16,185,129,0.3);
+}
+
+/* Layout */
+.wrap {
+  display: flex;
+  justify-content: center;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 64px 24px 0;
+  position: relative;
+  gap: 32px;
+}
+main {
+  flex: 1;
+  min-width: 0;
+  padding: 0 0 80px;
+  max-width: 1000px;
+}
+
+/* TOC Sidebar */
+.toc {
+  position: sticky;
+  top: 64px;
+  width: 220px;
+  flex-shrink: 0;
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+  padding: 24px 0;
+  border-right: 1px solid var(--border);
+  background: rgba(248, 250, 252, 0.8);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+}
+.toc-title {
+  font-size: 1em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gray-500);
+  padding: 0 20px 12px;
+}
+.toc ul { list-style: none; padding: 0; }
+.toc li { margin: 0; }
+.toc a {
+  display: block;
+  padding: 5px 18px;
+  color: var(--gray-500);
+  text-decoration: none;
+  font-size: 0.88em;
+  font-weight: 600;
+  line-height: 1.5;
+  border-left: 2px solid transparent;
+  transition: all 0.15s;
+}
+.toc a:hover { color: var(--primary); background: var(--primary-light); }
+.toc a.active {
+  color: var(--primary);
+  border-left-color: var(--primary);
+  background: var(--primary-light);
+  font-weight: 600;
+}
+.toc-sub { padding-left: 0 !important; }
+.toc-sub li { margin: 0; }
+.toc-sub a {
+  padding: 3px 18px 3px 32px;
+  font-size: 0.85em;
+  color: var(--gray-500);
+  line-height: 1.4;
+}
+.toc-sub a:hover { color: var(--primary); background: var(--primary-light); }
+.toc-sub a.active {
+  color: var(--primary);
+  border-left-color: var(--primary);
+  background: var(--primary-light);
+}
+.toc-parent { position: relative; }
+.toc-parent > a { padding-right: 36px; }
+.toc-toggle {
+  position: absolute;
+  right: 2px;
+  top: 0;
+  bottom: 0;
+  width: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  transition: background 0.15s;
+  z-index: 1;
+}
+.toc-toggle:hover { background: var(--primary-light); }
+.toc-toggle::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid var(--gray-400);
+  transition: transform 0.2s;
+}
+.toc-parent.collapsed .toc-sub { display: none; }
+.toc-parent.collapsed .toc-toggle::after { transform: rotate(-90deg); }
+@media (max-width: 1200px) { .toc { display: none; } }
+
+/* Hero */
+.hero {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 40px 32px;
+  margin: 0 0 32px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  box-shadow: var(--shadow);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -70%; right: -8%;
+  width: 460px; height: 460px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37,99,235,0.14), transparent 65%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -80%; left: -6%;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(14,165,233,0.10), transparent 65%);
+  pointer-events: none;
+}
+.hero-main {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+.hero-title-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0 14px;
+}
+.hero h1 {
+  margin: 0;
+  font-size: 2em;
+  letter-spacing: 0.5px;
+  font-weight: 900;
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero .tagline {
+  font-size: 0.92em;
+  font-weight: 400;
+  color: var(--gray-500);
+}
+.hero .badges {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+.badge {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 14px;
+  font-size: 0.78em;
+  letter-spacing: 0.3px;
+  color: var(--gray-500);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+.badges .badge:first-child {
+  color: var(--success);
+  border-color: rgba(5, 150, 105, 0.28);
+  background: var(--success-light);
+  font-weight: 700;
+}
+
+/* Sections */
+.section {
+  position: relative;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  scroll-margin-top: 80px;
+  overflow: hidden;
+}
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--grad-primary);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.section:hover {
+  border-color: rgba(37, 99, 235, 0.25);
+  box-shadow: var(--shadow-md);
+}
+.section:hover::before { opacity: 1; }
+.section.js-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s, box-shadow 0.3s;
+}
+.section.js-reveal.revealed {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .section { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+h2 {
+  color: var(--text);
+  font-size: 1.2em;
+  margin: 0 0 20px;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+}
+h2::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 24px;
+  background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+h3 {
+  color: var(--text);
+  font-size: 1.05em;
+  margin: 28px 0 12px;
+  padding-left: 14px;
+  border-left: 3px solid var(--primary);
+  font-weight: 600;
+}
+h4 {
+  color: var(--text-secondary);
+  font-size: 1em;
+  margin: 18px 0 8px;
+  font-weight: 600;
+}
+h3:first-child { margin-top: 0; }
+p { margin: 10px 0; color: var(--text-secondary); }
+ul { line-height: 1.85; padding-left: 24px; margin: 12px 0; }
+ul li { margin-bottom: 6px; color: var(--text-secondary); }
+ul li::marker { color: var(--primary); font-size: 0.9em; }
+
+/* Tables */
+.table-wrap {
+  overflow-x: auto;
+  margin: 16px 0;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+.table-wrap::-webkit-scrollbar { height: 6px; }
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  font-size: 0.85em;
+  overflow: hidden;
+}
+thead tr { background: linear-gradient(180deg, var(--gray-50), var(--gray-100)); }
+th {
+  padding: 12px 18px;
+  text-align: left;
+  color: var(--gray-700);
+  font-weight: 600;
+  font-size: 0.78em;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  border-bottom: 2px solid var(--gray-300);
+  white-space: nowrap;
+}
+th:first-child { border-radius: var(--radius-sm) 0 0 0; }
+th:last-child { border-radius: 0 var(--radius-sm) 0 0; }
+td {
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: top;
+  color: var(--text-secondary);
+  transition: background 0.15s;
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:nth-child(even) { background: var(--gray-50); }
+tbody tr:hover td { background: var(--primary-light); color: var(--text); }
+
+/* Inline code */
+code {
+  background: var(--gray-100);
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.84em;
+  color: var(--danger);
+  border: 1px solid var(--border);
+  word-break: break-word;
+}
+
+/* Code blocks */
+pre {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 48px 24px 20px;
+  border-radius: var(--radius);
+  overflow-x: auto;
+  font-size: 0.85em;
+  line-height: 1.7;
+  margin: 16px 0;
+  box-shadow: inset 0 1px 4px rgba(0,0,0,0.5), var(--shadow);
+  position: relative;
+  border: 1px solid #334155;
+  border-top: 2px solid #2563eb;
+}
+pre code {
+  background: none;
+  padding: 0;
+  border: none;
+  color: inherit;
+  font-size: inherit;
+  font-family: var(--font-mono);
+}
+pre::before {
+  content: '示例';
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  background: rgba(37, 99, 235, 0.14);
+  color: #93c5fd;
+  border: 1px solid rgba(37, 99, 235, 0.35);
+  padding: 3px 12px 4px;
+  border-radius: 6px;
+  font-size: 0.7em;
+  letter-spacing: 2px;
+  font-weight: 600;
+  line-height: 1;
+}
+pre.has-bar::before { display: none; }
+.pre-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  background: rgba(255,255,255,0.045);
+  border-bottom: 1px solid rgba(255,255,255,0.09);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.pre-dots { display: flex; gap: 6px; }
+.pre-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.pre-dot.r { background: #ff5f57; }
+.pre-dot.y { background: #febc2e; }
+.pre-dot.g { background: #28c840; }
+.pre-label {
+  margin-left: 6px;
+  font-size: 0.66em;
+  letter-spacing: 2px;
+  font-weight: 600;
+  color: #64748b;
+  font-family: var(--font-sans);
+}
+.pre-copy {
+  margin-left: auto;
+  font-family: var(--font-sans);
+  font-size: 0.72em;
+  font-weight: 600;
+  color: #cbd5e1;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px;
+  padding: 3px 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pre-copy:hover { background: rgba(255,255,255,0.16); color: #fff; }
+.pre-copy.copied { background: rgba(74,222,128,0.18); color: #4ade80; border-color: rgba(74,222,128,0.4); }
+.hln { color: #60a5fa; font-weight: 500; }
+.hlo { color: #f87171; font-weight: 500; }
+.hlr { color: #4ade80; font-weight: 600; }
+.hlc { color: #94a3b8; font-style: italic; }
+
+/* Alerts */
+.tip, .warn, .info {
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin: 16px 0;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 0.92em;
+  line-height: 1.7;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.tip strong, .warn strong, .info strong {
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-weight: 600;
+}
+.tip {
+  background: linear-gradient(135deg, var(--success-light), rgba(209,250,229,0.35));
+  border-left: 4px solid var(--success);
+}
+.warn {
+  background: linear-gradient(135deg, var(--warning-light), rgba(254,243,199,0.35));
+  border-left: 4px solid var(--warning);
+}
+.info {
+  background: linear-gradient(135deg, var(--primary-light), rgba(219,234,254,0.35));
+  border-left: 4px solid var(--primary);
+}
+
+/* Feature highlight */
+.feature-highlight {
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin: 20px 0;
+  background: linear-gradient(135deg, #eff6ff, #e0f2fe);
+  border: 1px solid #bfdbfe;
+  border-left: 4px solid var(--primary);
+  font-size: 0.92em;
+  line-height: 1.75;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(37,99,235,0.07);
+}
+.feature-highlight .fh-head {
+  font-weight: 700;
+  color: var(--primary-dark);
+  font-size: 1.05em;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed #93c5fd;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.feature-highlight .fh-body p {
+  margin: 0 0 10px 0;
+  color: var(--text-secondary);
+}
+.feature-highlight .fh-body p:last-child { margin-bottom: 0; }
+
+/* Cards */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+.card {
+  background: var(--gray-50);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  font-size: 0.85em;
+  line-height: 1.6;
+  transition: all 0.25s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.card:hover {
+  background: var(--surface);
+  border-color: var(--primary-light);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+.card:hover::before { opacity: 1; }
+.card strong {
+  color: var(--text);
+  display: block;
+  margin-bottom: 4px;
+  font-size: 1em;
+}
+
+/* Tags */
+.tag-on {
+  display: inline-block;
+  background: var(--success-light);
+  color: var(--success);
+  border-radius: 12px;
+  padding: 2px 10px;
+  font-size: 0.72em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  border: 1px solid rgba(5, 150, 105, 0.2);
+}
+.tag-off {
+  display: inline-block;
+  background: var(--gray-100);
+  color: var(--gray-500);
+  border-radius: 12px;
+  padding: 2px 10px;
+  font-size: 0.72em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  border: 1px solid var(--border);
+}
+
+/* kbd */
+kbd {
+  display: inline-block;
+  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+  border: 1px solid #cbd5e1;
+  border-bottom: 3px solid #94a3b8;
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 0.8em;
+  font-family: var(--font-mono);
+  color: var(--gray-700);
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  vertical-align: middle;
+  margin: 0 1px;
+}
+
+/* FAQ */
+details {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin: 10px 0;
+  overflow: hidden;
+  transition: all 0.25s;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+details:hover { border-color: var(--gray-300); }
+details[open] {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-md);
+}
+summary {
+  padding: 14px 20px;
+  cursor: pointer;
+  background: linear-gradient(180deg, var(--gray-50), var(--surface));
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.95em;
+  user-select: none;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s;
+  position: relative;
+}
+summary:hover {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+summary::before {
+  content: '';
+  display: inline-block;
+  width: 0; height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid var(--primary);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+details[open] summary {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+details[open] summary::before { transform: rotate(180deg); }
+details > div {
+  padding: 16px 20px 18px;
+  font-size: 0.92em;
+  background: var(--surface);
+  line-height: 1.8;
+  color: var(--text-secondary);
+  animation: slideDown 0.3s ease;
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Footer */
+.footer {
+  position: relative;
+  text-align: center;
+  color: var(--gray-500);
+  font-size: 0.85em;
+  padding: 44px 20px 40px;
+  margin-top: 20px;
+  line-height: 2;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 96px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--grad-primary);
+}
+
+/* Links */
+a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.15s;
+  border-bottom: 1px solid transparent;
+}
+a:hover {
+  color: var(--primary-dark);
+  border-bottom-color: var(--primary-light);
+}
+
+/* Back to top */
+.btt {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--grad-primary);
+  border: none;
+  color: #fff;
+  font-size: 1.2em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s;
+  z-index: 999;
+  pointer-events: none;
+}
+.btt.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+.btt:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 10px 26px rgba(37, 99, 235, 0.45);
+  filter: brightness(1.08);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  body { font-size: 14px; }
+  .wrap { padding: 64px 16px 0; }
+  main { padding: 0 0 60px; }
+  .section { padding: 20px 18px; border-radius: var(--radius); margin-bottom: 16px; }
+  .hero { padding: 28px 16px 20px; margin: 0 0 20px; }
+  .hero h1 { font-size: 1.3em; letter-spacing: 1px; }
+  .nav-sub { display: none; }
+  .grid-2 { grid-template-columns: 1fr; gap: 10px; }
+  pre { padding: 26px 16px 14px; font-size: 0.78em; }
+  table { font-size: 0.8em; }
+  th, td { padding: 10px 12px; }
+  .tip, .warn, .info { padding: 12px 16px; }
+}
+@media (max-width: 480px) {
+  .hero { gap: 14px; padding: 24px 16px 18px; }
+  .hero h1 { font-size: 1.1em; }
+  .hero .tagline { font-size: 0.85em; }
+  h2 { font-size: 1.1em; }
+  h3 { font-size: 0.95em; }
+}
+
+/* Print */
+@media print {
+  .nav-wrap, .toc, .btt, #progress { display: none !important; }
+  .section { box-shadow: none !important; border: 1px solid #ddd !important; break-inside: avoid; }
+  body { background: #fff !important; }
+}
+
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<nav class="nav-wrap" id="navbar">
+  <div class="nav-in">
+    <a href="javascript:void(0)" class="nav-brand" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
+      <img src="data:image/x-icon;base64,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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AQ5x/hIScf42FHH+ShRy/kwUcv5MFHL+TBRy/kwUcv5MFHL+TBRy/kwUcv5MFHL+TBRy/kwUcv5MFHL+TBRy/kwUcP5LFXL6Ohht/hUA//8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfz8ABJRBEB+PQxNAkkAUS5A/FEyQPxRMkD8UTJA/FEyQPxRMkD8UTJA/FEyQPxRMkD8UTJA/FEyQPxRMkD8UTJA/FEyNQxFIk0MQLYtFFwsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//////////////////////////////////////////////////////////////////////////////////////wAAH8AAA//+AAAHgAAB//wAAAeAAAD//AAABwAAAP/8AAAHAAAA//wAAAcAAAD//AAABwAAAP/8AAAHAAAA//wAAAcAAAD//AAQBwAAAP/8AKAHAAAA//wAQAcAAAD//ACgBwAAAP/8ABAHAAAA//wACAcAAAD//AAABwAAAP/8AAAHAAAA//wAAAcAAAD//AAABwAAAP/8AAAHAAAA//wAAAeAAAD//gAAB4AAAf/+AAAPwAAD//////////////////////////////////+AAD/wAAf//gAAD8AAAf/8AAAHgAAB//wAAAeAAAD//AAABwAAAP/8AAAHAAAA//wAAAcAAAD//ABABwAAAP/8AEAHAAAA//wAQAcAAAD//ABABwAAAP/8AEAHAAAA//wAQAcAAAD//ABABwAAAP/8AEAHAAAA//wAQAcAAAD//ABABwAAAP/8AEAHAAAA//wAAAcAAAD//AAABwAAAP/8AAAHAAAA//wAAAeAAAD//gAAD4AAAf//AAAf4AAD/////////////////////////////////////////////////////////////////KAAAADAAAABgAAAAAQAgAAAAAACAJQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///////wAA////////AAD///////8AAP///////wAA////////AAD///////8AAP4AAeAAHwAA/AABwAAfAAD8AADAAA8AAPwAAMAADwAA/AAAwAAPAAD8AADAAA8AAPwAAMAADwAA/AAAwAAPAAD8AgDAAA8AAPwAAMAADwAA/AAAwAAPAAD8AADAAA8AAPwAAMAADwAA/AAAwAAPAAD8AADAAA8AAPwAAMAAHwAA/AABwAAfAAD/AAPwAD8AAP///////wAA////////AAD+AAHgAB8AAPwAAcAAHwAA/AAAwAAPAAD8AADAAA8AAPwAAMAADwAA/AAAwAAPAAD8AADAAA8AAPwAAMAADwAA/AIAwAAPAAD8AADAAA8AAPwAAMAADwAA/AAAwAAPAAD8AADAAA8AAPwAAMAADwAA/AAAwAAPAAD8AADAAA8AAPwAAcAAHwAA/wAD8AA/AAD///////8AAP///////wAA////////AAD///////8AACgAAAAoAAAAUAAAAAEAIAAAAAAAQBoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP8BAAD/AQAA/wEAAP8BAAD/AQAA/wEAAP8BAAD/AQAA/wEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFX/AxRy/jETcf5qE3D+dBNw/nQTcP50E3D+dBNw/nQTcP50E3D+dBNw/nQUcv5yEm/7UhF3/w8AAAAAAAAAAAAAAACLRRcLjkMUS5BBFHGOQRN0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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////8AAAD//////wAAAP//////AAAA//////8AAAD/AH8AfwAAAPgAHAAPAAAA+AAIAA8AAADwAAgABwAAAPAACAAHAAAA8AAIAAcAAADwAAgABwAAAPAACAAHAAAA8AAIAAcAAADwAAgABwAAAPAACAAHAAAA8AAIAAcAAADwAAgABwAAAPgACAAHAAAA+AAMAA8AAAD8AB4AHwAAAP//////AAAA/AA+AB8AAAD4ABwADwAAAPgACAAHAAAA8AAIAAcAAADwAAgABwAAAPAACAAHAAAA8AAIAAcAAADwAAgABwAAAPAACAAHAAAA8AAIAAcAAADwAAgABwAAAPAACAAHAAAA8AAIAAcAAAD4AAgADwAAAPgAHAAPAAAA/gA+AD8AAAD//////wAAAP//////AAAA//////8AAAAoAAAAIAAAAEAAAAABACAAAAAAAIAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//AQB//wIAf/8CAH//AgB//wIAf/8CAH//AgAA/wEAAAAA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" alt="TextCalc">
+      <span class="nav-title">TextCalc<span class="nav-sub">（文本表达式计算器）帮助手册</span></span>
+      <span class="nav-ver">v3.6</span>
+    </a>
+  </div>
+</nav>
+
+<div class="wrap">
+<aside class="toc" id="tocSidebar">
+  <div class="toc-title">目录</div>
+  <ul>
+    <li><a href="#sec-intro">一、软件简介</a></li>
+    <li class="toc-parent">
+      <a href="#sec-start">二、快速上手</a><span class="toc-toggle"></span>
+      <ul class="toc-sub">
+        <li><a href="#sec-start-1">启动</a></li>
+        <li><a href="#sec-start-2">输入即计算</a></li>
+        <li><a href="#sec-start-3">粘贴混合内容</a></li>
+        <li><a href="#sec-start-4">运算符速查</a></li>
+      </ul>
+    </li>
+    <li class="toc-parent">
+      <a href="#sec-calc">三、计算功能</a><span class="toc-toggle"></span>
+      <ul class="toc-sub">
+        <li><a href="#sec-calc-1">实时计算</a></li>
+        <li><a href="#sec-calc-2">链式表达式</a></li>
+        <li><a href="#sec-calc-3">换行续算</a></li>
+        <li><a href="#sec-calc-4">一键求和</a></li>
+        <li><a href="#sec-calc-5">百分比自动转换</a></li>
+        <li><a href="#sec-calc-6">前导零自动补全</a></li>
+        <li><a href="#sec-calc-7">变量系统</a></li>
+      </ul>
+    </li>
+    <li class="toc-parent">
+      <a href="#sec-input">四、输入与编辑</a><span class="toc-toggle"></span>
+      <ul class="toc-sub">
+        <li><a href="#sec-input-1">括号自动配对</a></li>
+        <li><a href="#sec-input-2">全角符号自动转半角</a></li>
+        <li><a href="#sec-input-3">表达式自动空格</a></li>
+        <li><a href="#sec-input-4">表达式锁定</a></li>
+      </ul>
+    </li>
+    <li class="toc-parent">
+      <a href="#sec-format">五、数字与格式</a><span class="toc-toggle"></span>
+      <ul class="toc-sub">
+        <li><a href="#sec-format-1">小数位与舍入方式</a></li>
+        <li><a href="#sec-format-2">不足补零</a></li>
+        <li><a href="#sec-format-3">金额转换</a></li>
+      </ul>
+    </li>
+    <li class="toc-parent">
+      <a href="#sec-ui">六、界面与设置</a><span class="toc-toggle"></span>
+      <ul class="toc-sub">
+        <li><a href="#sec-ui-1">状态栏</a></li>
+        <li><a href="#sec-ui-2">计算历史面板</a></li>
+        <li><a href="#sec-ui-3">外观设置</a></li>
+        <li><a href="#sec-ui-4">功能一览表</a></li>
+        <li><a href="#sec-ui-5">键盘快捷键与鼠标操作</a></li>
+      </ul>
+    </li>
+    <li class="toc-parent">
+      <a href="#sec-appendix">七、附录</a><span class="toc-toggle"></span>
+      <ul class="toc-sub">
+        <li><a href="#sec-appendix-1">常见问题</a></li>
+        <li><a href="#sec-appendix-2">获取与反馈</a></li>
+      </ul>
+    </li>
+  </ul>
+</aside>
+<main>
+<div class="hero">
+  <div class="hero-main">
+    <div class="hero-title-row">
+      <h1>TextCalc</h1>
+      <div class="tagline">专为财务工作者打造 · 不求大而全，只做小而专</div>
+    </div>
+    <div class="badges">
+      <span class="badge">v3.6</span>
+      <span class="badge">Windows 7 / 10 / 11</span>
+      <span class="badge">免费 · 免安装 · 即开即用</span>
+    </div>
+  </div>
+</div>
+<div class="section" id="sec-intro">
+  <h2>一、软件简介</h2>
+  <p><strong>TextCalc</strong> 专为财务、会计、审计及数据分析人员打造。与普通计算器不同，它以<strong>文本行</strong>为载体——每一行既是一条计算记录，也是一步可编辑的草稿。输入即计算，过程可追溯、可复查、可复用，整个思考链条完整保留在屏幕上。</p>
+  <div class="grid-2">
+    <div class="card"><strong>实时计算</strong><br>输入算式即显结果，无需按等号键</div>
+    <div class="card"><strong>链式推导</strong><br>等号串联多步运算，改任意数字全链重算</div>
+    <div class="card"><strong>混合粘贴</strong><br>从 Excel、微信复制带文字的内容，自动过滤后计算</div>
+    <div class="card"><strong>金额转换</strong><br>一键转中文大写 / 小写金额，支持小数位控制</div>
+  </div>
+  <div class="info">
+    <strong>核心理念：</strong>"所见即所算"——把计算器变成草稿纸。每一行算式都留在屏幕上，结果又能直接参与下一段运算。核对数据时，整条计算路径一目了然，不再担心按错重来。TextCalc 信奉“小而美”的哲学——不贪多，只求精。它只提供加减乘除、百分比、幂运算这些财务人最常用的算力，足以覆盖对账、报价、汇总等日常痛点。因为运算符越少，语法越干净，上手自然零门槛。至于三角函数、对数这类高阶需求，建议您交给更专业的工具，而把TextCalc留给每天都会碰到的那些数字琐事。
+  </div>
+</div>
+<div class="section" id="sec-start">
+  <h2>二、快速上手</h2>
+  <h3 id="sec-start-1">1. 启动</h3>
+  <p>双击 <code>TextCalc.exe</code> 即可运行，无需安装。窗口默认置顶（800×400），可调节透明度浮在其他程序上方使用。</p>
+  <p>请保持 <code>TextCalc.exe</code> 与同目录下的 <code>LCD.ttf</code>、<code>HELP.html</code> 在一起，解压时勿遗漏。自 v3.6 起 <code>Calc.dat</code>、<code>Hexin.dat</code> 已内嵌进程序，分发文件由 5 个缩减为 3 个，无需再单独拷贝。启动时程序会自动校验所需文件，任一缺失将弹出错误提示并退出。</p>
+  <h3 id="sec-start-2">2. 输入即计算</h3>
+  <p>在文本框中直接输入算式，行尾和状态栏立即显示<strong>光标位置之前</strong>的结果——这就是<strong>实时计算</strong>，无需按任何键。</p>
+  <pre><span class="hln">100</span> <span class="hlo">+</span> <span class="hln">200</span></pre>
+  <div class="tip"><strong>指哪算哪：</strong>实时模式下将光标移到表达式任意位置，状态栏显示光标之前的结果，轻松定位中间值。</div>
+  <p>按 <kbd>Enter</kbd>：显示当前行计算结果 / 换行。按 <kbd>Shift</kbd>+<kbd>Enter</kbd> 强制换行（不计算）。开启「换行续算」且实时计算开启时新行自动继承上行结果。</p>
+  <h3 id="sec-start-3">3. 粘贴混合内容</h3>
+  <p>从 Excel、网页或微信复制一段文字，直接粘贴：</p>
+  <pre>本月收入 <span class="hln">12,500.00</span> 元 - 支出 <span class="hln">3,280.50</span> 元</pre>
+  <p>软件自动过滤汉字、单位和千分位符，只保留数字和运算符参与计算。</p>
+  <h3 id="sec-start-4">4. 运算符速查</h3>
+  <table>
+    <thead><tr><th>运算</th><th>键入</th><th>显示</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr><td>加</td><td><code>+</code></td><td><code>+</code></td><td>标准加法</td></tr>
+      <tr><td>减</td><td><code>-</code></td><td><code>-</code></td><td>支持负数，如 <code>-100</code></td></tr>
+      <tr><td>乘</td><td><code>*</code> 或 <code>×</code></td><td><code>×</code></td><td><code>*</code> 自动转 <code>×</code>（仅视觉）</td></tr>
+      <tr><td>除</td><td><code>/</code> 或 <code>÷</code></td><td><code>÷</code></td><td><code>/</code> 自动转 <code>÷</code></td></tr>
+      <tr><td>幂</td><td><code>^</code></td><td><code>^</code></td><td><code>4^0.5=2</code>。小数指数须底数和指数均非负；整数指数上限 ±1000，底数 &gt;1 时指数上限 300</td></tr>
+      <tr><td>链式</td><td><code>=</code></td><td><code>=</code></td><td>串联多步计算，见第三章</td></tr>
+      <tr><td>括号</td><td><code>( )</code></td><td><code>( )</code></td><td>控制优先级，如 <code>(100+200)×1.13</code></td></tr>
+      <tr><td>百分比</td><td><code>%</code></td><td><code>%</code></td><td>自动转换，<code>10%</code> 替换为 <code>(10/100)</code>，如 <code>200×5%=10</code></td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="section" id="sec-calc">
+
+  <h2>三、计算功能</h2>
+  <h3 id="sec-calc-1">1. 实时计算</h3>
+  <p>输入时行尾和状态栏动态显示<strong>光标位置之前</strong>的结果。光标在行内移动时自动重算，方便逐步检查中间值。</p>
+  <table>
+    <thead><tr><th>模式</th><th>光标在行中按 Enter</th><th>光标在行尾按 Enter</th></tr></thead>
+    <tbody>
+      <tr><td><strong>实时计算 开</strong> <span class="tag-on">默认</span></td><td>跳至行尾（行已被实时处理）</td><td>换行（换行续算开启则填入上行结果）</td></tr>
+      <tr><td><strong>实时计算 关</strong></td><td>计算并显示结果，光标移至行尾</td><td>已有结果则换行；无结果则先计算（有效表达式再按回车换行，无效表达式自动换行）</td></tr>
+    </tbody>
+  </table>
+  <h3 id="sec-calc-2">2. 链式表达式</h3>
+  <p>用 <code>=</code> 串联多步运算。上一步的计算结果，就是下一步的运算起点：</p>
+  <table>
+    <thead><tr><th style="width:48%">输入</th><th>自动补全为</th></tr></thead>
+    <tbody>
+      <tr><td><code>100 + 200 = &times;1.13 = -50 =</code></td><td><code>100 + 200 = 300 &times; 1.13 = 339 - 50 = 289</code></td></tr>
+      <tr><td><code>50000 = &divide;1.13 = &times;1.06 =</code></td><td><code>50000 = 50,000 &divide; 1.13 = 44,247.79 &times; 1.06 = 46,902.65</code></td></tr>
+      <tr><td><code>1200 = &times;12 = &divide;1.13 =</code></td><td><code>1200 = 1,200 &times; 12 = 14,400 &divide; 1.13 = 12,743.36</code></td></tr>
+    </tbody>
+  </table>
+  <div class="info"><strong>规则：</strong>首个 <code>=</code> 前为初始表达式；后续 <code>=</code> 后接运算符+数字，以前一步结果为基础计算；若 <code>=</code> 后仅有数字则跳过重算（手动修正中间值）。</div>
+  <div class="tip"><strong>实时微调：</strong>直接修改表达式中的数字，所有步骤结果立刻更新，无需清空重算整行。</div>
+  <div class="warn"><strong>出错灰度标记：</strong>若链式中某一步计算出错（如÷0），该步及其后续所有已计算的结果自动变为灰色，状态栏同步显示错误原因。修正错误后灰度自动消失，结果恢复绿色。灰色 = "未确认"——用户能看到中间值辅助定位问题，而非面对一片空白。</div>
+  <div class="feature-highlight">
+    <div class="fh-head">亮点功能 · 点哪复制哪</div>
+    <div class="fh-body">
+      <p>链式表达式有多步结果怎么办？<strong>双击任意一个 <code>= 结果</code></strong> 即可复制被点击位置的结果，精准到每一步，无需手动框选。</p>
+      <p>同时，这一设计还巧妙<strong>避免了双击误触选中</strong>的困扰：普通文本编辑器双击会选中单词并高亮，在数字密集的界面中极易误触发；TextCalc 将双击绑定为复制，既完成复制又不产生意外选中，一举两得。</p>
+    </div>
+  </div>
+<h3 id="sec-calc-3">3. 换行续算</h3>
+  <p>开启后按 Enter 换行时（需实时计算开启且光标在行尾）自动将上行末尾的计算结果填入新行行首：</p>
+  <pre><span class="hln">100</span> <span class="hlo">+</span> <span class="hln">200</span> <span class="hlo">=</span> <span class="hlr">300</span>           <span class="hlc">&larr; 按 Enter</span>
+<span class="hlr">300</span> <span class="hlo">&times;</span> <span class="hln">2</span> <span class="hlo">=</span> <span class="hlr">600</span>             <span class="hlc">&larr; 自动带入 300</span></pre>
+  <h3 id="sec-calc-4">4. 一键求和 <span class="tag-off">Ctrl+S</span></h3>
+  <p>按 <kbd>Ctrl</kbd>+<kbd>S</kbd> 扫描<strong>全部行</strong>，累加每行末尾 <code>= 结果</code> 并插入合计行，同时将总和复制到剪贴板：</p>
+  <pre>项目A  <span class="hln">100</span> <span class="hlo">=</span> <span class="hlr">100</span>
+项目B  <span class="hln">200</span> <span class="hlo">+</span> <span class="hln">50</span> <span class="hlo">=</span> <span class="hlr">250</span>
+项目C  <span class="hln">1000</span> <span class="hlo">&times;</span> <span class="hln">1.13</span> <span class="hlo">=</span> <span class="hlr">1,130</span>
+              <span class="hlc">&darr; Ctrl+S</span>
+Total 3 Row Sum <span class="hlo">=</span> <span class="hlr">1,480</span></pre>
+
+  <h3 id="sec-calc-5">5. 百分比自动转换</h3>
+
+      <p>直接在数字后加 <code>%</code>，自动替换为除以 100 的表达式，简化税率、折扣等常见场景：</p>
+      <pre><span class="hln">200</span> <span class="hlo">×</span> <span class="hln">5%</span> <span class="hlo">=</span> <span class="hlr">10</span>           <span class="hlc">&larr; 等同于 200×(5/100)</span>
+<span class="hln">8500</span> <span class="hlo">+</span> <span class="hln">8500×13%</span> <span class="hlo">=</span> <span class="hlr">9,605</span>   <span class="hlc">&larr; 含税价计算</span></pre>
+    
+  <h3 id="sec-calc-6">6. 前导零自动补全</h3>
+
+      <p>输入 <code>.6+.3</code> 时自动补全为 <code>0.6+0.3</code>，无需手工加零。仅对以 <code>.</code> 直接开头的数字生效，<code>1.6</code> / <code>0.6</code> / <code>X.5</code> 不受影响。</p>
+      <pre><span class="hln">.6</span> <span class="hlo">+</span> <span class="hln">.3</span>        <span class="hlc">&larr; 输入</span>
+<span class="hln">0.6</span> <span class="hlo">+</span> <span class="hln">0.3</span> <span class="hlo">=</span> <span class="hlr">0.9</span>  <span class="hlc">&larr; 自动补全后</span></pre>
+    
+
+  <h3 id="sec-calc-7">7. 变量系统</h3>
+  <p>TextCalc 支持三个临时变量 <strong>X、Y、Z</strong>，用于存储中间计算结果并在后续表达式中引用，让分段运算像写草稿一样自然。</p>
+
+  <h4>定义变量</h4>
+  <p>有四种方式：</p>
+  <ul>
+    <li><strong>内联定义（推荐）：</strong>在任意空行输入 <code>X=表达式</code>（如 <code>X=100+200</code>），按回车后自动求值并生成 <code>100+200=300 → X</code>。写完表达式按回车即完成赋值。</li>
+    <li><strong>快捷键：</strong>在包含表达式的行上按 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd> / <kbd>Y</kbd> / <kbd>Z</kbd>，将当前行结果定义为对应变量。</li>
+    <li><strong>双击状态栏变量名：</strong>双击底部状态栏的 X / Y / Z 标签，将光标所在行的结果快速定义为该变量——手不用离开鼠标即可完成赋值，适合批量处理场景。</li>
+    <li><strong>右键菜单：</strong>右键 &rarr;「变量设置」&rarr; 设为变量 X / Y / Z，或右键状态栏变量标签。</li>
+  </ul>
+  <div class="tip"><strong>覆盖赋值：</strong>对已定义的变量再次执行定义操作会覆盖旧值，旧行末尾的 `→ X` 标记也会自动清除。如需清空变量，请使用右键菜单「取消变量 X/Y/Z」或右键状态栏变量标签。</div>
+
+  <h4>引用变量</h4>
+  <p>在任意表达式中直接写 <code>X</code>、<code>Y</code>、<code>Z</code>，计算时自动替换为对应数值：</p>
+  <pre>X=5000+2000    = 7,000  → X
+Y=3000-500     = 2,500  → Y
+X+Y            = 9,500</pre>
+  <ul>
+    <li><strong>高亮显示：</strong>变量名 X/Y/Z 在表达式中以紫色粗体显示，与数字和运算符一眼区分。</li>
+    <li><strong>悬停查看：</strong>鼠标悬停在变量名上 0.5 秒，弹出浮层显示当前值。</li>
+  </ul>
+
+  <h4>状态栏变量标签</h4>
+  <p>状态栏右侧固定显示 X、Y、Z 三个标签：</p>
+  <ul>
+    <li><strong>未定义：</strong>浅灰色 X / Y / Z</li>
+    <li><strong>已定义：</strong>紫色加粗，变量值更新时短暂闪烁</li>
+    <li><strong>光标联动：</strong>光标在引用变量的行时，对应标签自动加下划线</li>
+    <li><strong>单击：</strong>已定义时插入变量名到光标位置（200ms 延迟，若 200ms 内再次点击则为双击定义变量）</li>
+    <li><strong>双击：</strong>将光标行结果定义为该变量（覆盖赋值）</li>
+    <li><strong>右键：</strong>取消变量 / 查看当前值 / 跳到定义行</li>
+  </ul>
+
+  <h4>链式依赖</h4>
+  <p>变量支持相互引用。当 X 的值变化时，所有引用 X 的表达式和变量定义自动重算（最多迭代 5 轮处理链式依赖如 X→Y→Z，值稳定后自动停止）：</p>
+  <pre>X=100+50      = 150  → X
+Y=X*2         = 300  → Y
+Z=Y-100       = 200  → Z
+# 修改 X=100+50 为 X=200+100 后，Y 和 Z 自动更新</pre>
+
+</div>
+<div class="section" id="sec-input">
+<h2>四、输入与编辑</h2>
+  <h3 id="sec-input-1">1. 括号自动配对</h3>
+
+      <p>输入左括号 <code>(</code> 时自动补全 <code>)</code>，并将光标定位在括号中间，直接输入内容即可：</p>
+      <pre><span class="hln">(</span>                       <span class="hlc">&larr; 输入 (</span>
+<span class="hlo">(</span><span class="hln">100+200)×1.13</span><span class="hlo">)</span>    <span class="hlc">&larr; 自动补全 )，继续输入</span></pre>
+      <p>输入右括号 <code>)</code> 时，如果光标后方已经是 <code>)</code>，则智能跳过（不重复插入），避免打乱表达式结构。</p>
+    
+  <h3 id="sec-input-2">2. 全角符号自动转半角</h3>
+
+      <p>在中文输入法状态下输入全角符号时，自动转换为对应的半角符号，<strong>无需切换到英文输入法</strong>：</p>
+      <table>
+        <thead><tr><th>全角输入</th><th>自动转为</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td><code>（ ）</code></td><td><code>( )</code></td><td>括号，转换后同样走自动配对</td></tr>
+          <tr><td><code>＋ －</code></td><td><code>+ -</code></td><td>加减号</td></tr>
+          <tr><td><code>＊ ／</code></td><td><code>× ÷</code></td><td>乘除号，转换后再走 <code>*</code>→<code>×</code>、<code>/</code>→<code>÷</code></td></tr>
+          <tr><td><code>＝ ％ ，</code></td><td><code>= % ,</code></td><td>等号、百分号、千分位逗号</td></tr>
+        </tbody>
+      </table>
+      <p>粘贴混合内容时同样自动转换全角符号。</p>
+    
+  <h3 id="sec-input-3">3. 表达式自动空格</h3>
+
+      <p>开启后，输入表达式时自动在运算符两侧添加空格，提升可读性；关闭后表达式保持紧凑无空格格式。</p>
+      <pre><span class="hln">100</span><span class="hlo">+</span><span class="hln">200</span><span class="hlo">×</span><span class="hln">3</span>          <span class="hlc">&larr; 输入</span>
+<span class="hln">100</span> <span class="hlo">+</span> <span class="hln">200</span> <span class="hlo">×</span> <span class="hln">3</span> <span class="hlo">=</span> <span class="hlr">700</span>  <span class="hlc">&larr; 自动加空格</span></pre>
+      <div class="info"><strong>格式规则：</strong>运算符 <code>+ × ÷ ^ % =</code> 两侧自动加空格；负号不加空格（行首、括号后、运算符后的 <code>-</code> 视为负号，如 <code>100 + -50</code>）；变量后缀 <code>→X</code> 两侧不加空格。切换开关时，窗口内所有表达式同步重新格式化。</div>
+      <p>默认关闭，通过右键菜单「表达式自动空格」切换，状态保存至配置文件。</p>
+    
+  <h3 id="sec-input-4">4. 表达式锁定</h3>
+
+      <p>在包含重要表达式的行上<strong>右键 → 锁定此行</strong>（或按 <kbd>Ctrl+L</kbd> 快捷键），该行即以浅黄色背景标识，受保护防止误删：</p>
+      <ul>
+        <li><strong>快捷键</strong>：<kbd>Ctrl+L</kbd> 快速切换当前行锁定/解锁状态，双手无需离开键盘。</li>
+        <li><strong>防删不禁改</strong>：锁定行进行清空操作后不会被删除，但仍可正常编辑数字、重新计算——锁的是"防误删"，不是"冻结"。</li>
+        <li><strong>清空保护</strong>：Ctrl+D 清空时，锁定行按原顺序紧凑排列保留，非锁定行全部删除。</li>
+        <li><strong>位置自动跟踪</strong>：在其他行插入或删除时，锁定标记自动跟随，无需手动维护。</li>
+        <li><strong>自动保存</strong>：锁定状态保存至配置文件，重启后自动恢复。</li>
+        <li><strong>解锁</strong>：在锁定行上右键 → 解锁此行（或再次按 <kbd>Ctrl+L</kbd>），即可恢复正常状态。</li>
+      </ul>
+    
+</div>
+<div class="section" id="sec-format">
+
+  <h2>五、数字与格式</h2>
+  <h3 id="sec-format-1">小数位与舍入方式</h3>
+  <p>双击状态栏「小数位」标签弹出设置对话框，可配置以下三项：</p>
+  <table><thead><tr><th>设置</th><th>含义</th></tr></thead>
+    <tbody>
+      <tr><td><code>10</code> <span class="tag-on">默认</span></td><td>保留 10 位小数（日常使用推荐）</td></tr>
+      <tr><td><code>-1</code></td><td>不限制，显示最多 28 位小数（高精度需求）</td></tr>
+      <tr><td><code>0</code></td><td>只保留整数部分</td></tr>
+      <tr><td><code>1</code> ~ <code>15</code></td><td>保留指定位数小数</td></tr>
+    </tbody>
+  </table>
+  <table><thead><tr><th>舍入方式</th><th>说明</th><th>示例</th></tr></thead>
+    <tbody>
+      <tr><td><strong>四舍五入</strong> <span class="tag-on">默认</span></td><td>通用场景</td><td>3.1450 &rarr; 3.15</td></tr>
+      <tr><td><strong>向下取整</strong></td><td>保守估算</td><td>3.1499 &rarr; 3.14</td></tr>
+      <tr><td><strong>向上取整</strong></td><td>采购备货</td><td>3.1401 &rarr; 3.15</td></tr>
+    </tbody>
+  </table>
+  <h3 id="sec-format-2">不足补零</h3>
+  <p>设置小数位后，决定位数不足时的显示方式。在上方「小数位设置」对话框中勾选即可：</p>
+  <table><thead><tr><th>状态</th><th>结果 3.1（设置 2 位）</th><th>结果 5（设置 2 位）</th></tr></thead>
+    <tbody>
+      <tr><td><strong>开启</strong> <span class="tag-off">默认关</span></td><td><code>3.10</code></td><td><code>5.00</code></td></tr>
+      <tr><td><strong>关闭</strong></td><td><code>3.1</code></td><td><code>5</code></td></tr>
+    </tbody>
+  </table>
+  <div class="info"><strong>高精度计算：</strong>内部使用 Decimal 28 位有效数字，消除浮点误差。默认保留 10 位小数，设为 -1 可显示完整 28 位精度。</div>
+
+
+  <h3 id="sec-format-3">金额转换</h3>
+  <p>单击状态栏 <strong style="color:#d63031">¥</strong> 按钮，弹出转换窗口，自动带入当前结果，也可手动输入。各结果旁有独立复制按钮：</p>
+  <table><thead><tr><th>转换类型</th><th>示例（1,234,567.89）</th></tr></thead>
+    <tbody>
+      <tr><td>中文汉字小写</td><td>一百二十三万四千五百六十七点八九</td></tr>
+      <tr><td>中文大写金额</td><td>壹佰贰拾叁万肆仟伍佰陆拾柒元捌角玖分</td></tr>
+    </tbody>
+  </table>
+  <div class="info"><strong>支持负数：</strong>输入负数金额（如 <code>-1,234.56</code>）可自动转换为"负壹仟贰佰叁拾肆元伍角陆分"。</div>
+
+</div>
+<div class="section" id="sec-ui">
+<h2>六、界面与设置</h2>
+
+  <h3 id="sec-ui-1">状态栏</h3>
+  <p>底部状态栏分左右两区，右侧通过竖线分隔符 <code>|</code> 划分为三组：</p>
+  <div class="info" style="display:block">📐 <strong>右区布局：</strong><code>X Y Z</code> <strong style="color:#bbb">|</strong> <code>¥ ☷</code> <strong style="color:#bbb">|</strong> <code>小数 分节 复制 实时 续算 置顶 ⚙</code><br>第一组：变量标签<br>第二组：快捷功能入口<br>第三组：开关设置与自定义菜单</div>
+  <ul>
+    <li><strong>左区：</strong>显示当前计算结果（绿色）或错误信息（红色），<strong>双击可复制</strong>。鼠标悬停时变为 🖐️ 手型并弹出"双击复制结果"提示。</li>
+    <li><strong>右区：</strong>分节、复制、实时、续算、置顶标签<strong>双击</strong>切换开关；¥ / ⚙ / ☷ / X / Y / Z 标签<strong>单击</strong>触发对应操作。绿色 ● = 开，灰色 ○ = 关。</li>
+    <li><strong>¥ 按钮：</strong>单击打开金额转换窗口，激活时变为绿色</li>
+    <li><strong>⚙ 按钮：</strong>单击弹出菜单，勾选/取消各标签的显示与隐藏</li>
+    <li><strong>☷ 按钮：</strong>单击展开/收起底部计算历史面板（详见下节）</li>
+    <li><strong>悬停高亮：</strong>所有状态栏标签鼠标悬停时颜色自动变化，浅色标签加深、深色标签变亮，提供即时视觉反馈</li>
+  </ul>
+  <h4>标签默认状态</h4>
+  <table><thead><tr><th>标签</th><th>默认</th><th>双击操作</th></tr></thead>
+    <tbody>
+      <tr><td>小数位</td><td><span class="tag-on">显示</span></td><td>弹出小数位设置对话框</td></tr>
+      <tr><td>千分位</td><td><span class="tag-on">显示</span></td><td>切换分节开关</td></tr>
+      <tr><td>自动复制</td><td><span class="tag-on">显示</span></td><td>切换自动复制开关</td></tr>
+      <tr><td>实时计算</td><td><span class="tag-on">显示</span></td><td>切换实时计算开关</td></tr>
+      <tr><td>换行续算</td><td><span class="tag-on">显示</span></td><td>切换换行续算开关</td></tr>
+      <tr><td>窗口置顶</td><td><span class="tag-on">显示</span></td><td>切换窗口置顶开关</td></tr>
+    </tbody>
+  </table>
+
+
+  <h3 id="sec-ui-2">计算历史面板</h3>
+  <p>TextCalc 自动记录每次完成计算时的表达式和结果，点击状态栏 <strong>☷</strong> 标签即可展开底部历史面板，方便回溯和复用之前的计算。</p>
+
+  <h4>面板操作</h4>
+  <table><thead><tr><th>操作</th><th>效果</th></tr></thead>
+    <tbody>
+      <tr><td>单击历史行</td><td>将表达式插入到当前光标位置</td></tr>
+      <tr><td>右键历史行</td><td>复制该条结果到剪贴板</td></tr>
+      <tr><td>滚轮滚动</td><td>滚动历史列表（超过 8 条时）</td></tr>
+      <tr><td>清空按钮</td><td>清除非锁定条目（全部锁定时不执行）</td></tr>
+      <tr><td>再次点击 ☷</td><td>关闭面板</td></tr>
+    </tbody>
+  </table>
+
+  <h4>条目管理</h4>
+  <p>每条记录右侧有两个操作图标：</p>
+  <ul>
+    <li><strong>锁定 ○/●：</strong>点击切换锁定状态。锁定 ●（红色）的记录不受"清空"操作影响，适合保留重要计算结果。</li>
+    <li><strong>删除 ✕：</strong>移除单条记录。锁定记录的删除图标显示为灰色（不可用），保持列表整齐。</li>
+  </ul>
+
+  <h4>记录规则</h4>
+  <ul>
+    <li><strong>自动记录：</strong>非实时模式 Enter 计算、实时模式 Enter 换行、变量赋值（<code>X=表达式</code> / <code>→ X</code> 后缀）均自动记录</li>
+    <li><strong>不记录：</strong>实时模式下逐键输入时的中间结果</li>
+    <li><strong>智能去重：</strong>与上一条完全相同的记录自动跳过</li>
+    <li><strong>容量上限：</strong>最多保留 200 条，超出后自动移除最早的记录</li>
+    <li><strong>自动保存：</strong>记录保存至 <code>History.json</code>，重启软件后依然可查</li>
+  </ul>
+
+  <div class="info"><strong>提示：</strong>☷ 标签展开面板时变为绿色 ●，折叠时恢复灰色 ○，一眼可知面板是否处于激活状态。</div>
+
+
+  <h3 id="sec-ui-3">外观设置</h3>
+  <h4>语义高亮</h4>
+  <table><thead><tr><th>元素</th><th>默认颜色</th><th>自定义入口</th></tr></thead>
+    <tbody>
+      <tr><td>数字</td><td><span style="color:#0080ff;font-weight:bold">■ #0080ff</span></td><td rowspan="3">右键 &rarr; 外观设置 &rarr; 字体与配色…</td></tr>
+      <tr><td>运算符</td><td><span style="color:#d63031;font-weight:bold">■ #ff0000</span></td></tr>
+      <tr><td>结果</td><td><span style="color:#1e8c1e;font-weight:bold">■ #1e8c1e</span></td></tr>
+    </tbody>
+  </table>
+  <h4>字体</h4>
+  <p>默认使用内置 <strong>LCD</strong> 数码管字体（<code>LCD.ttf</code>）。右键「外观设置 &rarr; 字体与配色…」可勾选「使用默认字体」或选择其他字体，字号 8～72（默认 20），底部有实时预览区。对话框底部「恢复」按钮可一键将所有外观选项（字体、字号、数字/符号/结果颜色）恢复为出厂默认值，预览后点「确定」生效。</p>
+  <h4>窗口透明度</h4>
+  <p>右键「外观设置 &rarr; 窗口透明度…」弹出滑块对话框，范围 20%～100%，支持实时预览。也可用 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+滚轮快速调节（每次 5%），编辑区中央浮层实时显示百分比，停止操作后自动消失。</p>
+<div class="tip">🖥️ <strong>浮动参照：</strong><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+滚轮调低透明度，让 TextCalc 半透明叠在 Excel 上方，边看数据边计算。</div>
+  <h4>当前行高亮</h4>
+  <p>光标所在行自动以<strong>浅蓝色</strong>（<code>#e8f0fe</code>）背景高亮显示。在多行计算中，这一视觉提示让你始终清楚正在编辑的是哪一行，避免将输入写到错误位置。光标移动时自动跟随，无需手动操作。</p>
+
+  <h3 id="sec-ui-4">功能一览表</h3>
+  <p>以下功能均可通过双击状态栏对应标签或右键菜单切换：</p>
+  <table>
+    <thead><tr><th>功能</th><th>默认</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr><td>分节</td><td><span class="tag-on">开</span></td><td>结果自动添加分节符，如 <code>1,000,000</code></td></tr>
+      <tr><td>窗口置顶</td><td><span class="tag-on">开</span></td><td>窗口始终显示在所有程序之上</td></tr>
+      <tr><td>保存窗口布局</td><td><span class="tag-on">开</span></td><td>关闭时记忆窗口位置、大小和最大化状态</td></tr>
+      <tr><td>恢复上次内容</td><td><span class="tag-on">开</span></td><td>内容 Base64 编码保存，重启完整还原</td></tr>
+      <tr><td>实时计算</td><td><span class="tag-on">开</span></td><td>输入时动态显示结果</td></tr>
+      <tr><td>自动复制</td><td><span class="tag-off">关</span></td><td>每次计算完成自动复制结果到剪贴板</td></tr>
+      <tr><td>换行续算</td><td><span class="tag-off">关</span></td><td>Enter 换行时自动将上行结果填入新行</td></tr>
+      <tr><td>显示行号</td><td><span class="tag-off">关</span></td><td>文本区左侧出现行号列</td></tr>
+      <tr><td>计算历史</td><td><span class="tag-on">开</span></td><td>自动记录每次计算的表达式和结果，支持回溯和复用</td></tr>
+      <tr><td>关闭到托盘</td><td><span class="tag-on">开</span></td><td>点击 ✕ 隐藏窗口到任务栏通知区域而非退出；右键托盘图标可切换此行为</td></tr>
+      <tr><td>只允许打开一个窗口</td><td><span class="tag-on">开</span></td><td>再次启动程序时激活已有窗口而非打开新实例（右键菜单切换，下次启动生效）</td></tr>
+      <tr><td>括号自动配对</td><td><span class="tag-on">开</span></td><td>输入 ( 自动补全 () 并将光标置于括号中间；输入 ) 时若后面已有 ) 则跳过（右键菜单切换）</td></tr>
+      <tr><td>开机自动启动</td><td><span class="tag-off">关</span></td><td>开机时自动启动并最小化到系统托盘，不弹出窗口（右键菜单切换）</td></tr>
+      <tr><td>表达式锁定</td><td><span class="tag-on">—</span></td><td>右键「锁定此行」或 <kbd>Ctrl+L</kbd> 快捷键切换锁定状态，锁定行以浅黄色背景标识，防止误删（Ctrl+D 清空时保留）；锁定行仍可正常编辑和计算</td></tr>
+      <tr><td>全角符号自动转半角</td><td><span class="tag-on">开</span></td><td>中文输入法下输入全角括号、运算符等自动转为半角，无需切换输入法</td></tr>
+      <tr><td>表达式自动空格</td><td><span class="tag-off">关</span></td><td>输入时自动在运算符两侧添加空格，提升可读性（右键菜单切换）</td></tr>
+      <tr><td>百分比自动转换</td><td><span class="tag-on">开</span></td><td>数字后加 % 自动替换为除以 100，如 <code>200×5%=10</code></td></tr>
+      <tr><td>前导零自动补全</td><td><span class="tag-on">开</span></td><td>输入 <code>.6</code> 自动补为 <code>0.6</code>，仅对以 <code>.</code> 开头的数字生效</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="sec-ui-5">键盘快捷键与鼠标操作</h3>
+  <table><thead><tr><th>快捷键</th><th>功能</th></tr></thead>
+    <tbody>
+      <tr><td><kbd>Enter</kbd></td><td>行中→计算/跳至行尾；行尾→换行</td></tr>
+      <tr><td><kbd>Shift</kbd>+<kbd>Enter</kbd> / <kbd>Ctrl</kbd>+<kbd>Enter</kbd></td><td>强制换行：在当前行末尾插入空行，不触发计算、不拆分行内容</td></tr>
+      <tr><td><kbd>Esc</kbd></td><td>关闭计算历史面板（面板展开时）</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>S</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd></td><td>一键求和</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>D</kbd></td><td>清空全部内容（锁定行保留）</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>L</kbd></td><td>切换当前行锁定 / 解锁</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>撤销</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>Y</kbd></td><td>恢复（最多 100 步）</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+滚轮</td><td>缩放字体 8～72</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+滚轮</td><td>调节窗口透明度 20%～100%</td></tr>
+      <tr><td><kbd>F1</kbd></td><td>打开帮助手册</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd></td><td>光标所在行定义为变量 X</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Y</kbd></td><td>光标所在行定义为变量 Y</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd></td><td>光标所在行定义为变量 Z</td></tr>
+    </tbody>
+  </table>
+  <h4>鼠标操作</h4>
+  <table><thead><tr><th>操作</th><th>功能</th></tr></thead>
+    <tbody>
+      <tr><td>右键单击文本区</td><td>弹出上下文菜单：清空/撤销/恢复/剪切/复制/粘贴/锁定此行（或解锁此行，<kbd>Ctrl+L</kbd> 快捷键）<br>&rarr; 外观设置 &rarr; 小数位设置<br>&rarr; 显示行号 / 括号自动配对 / 表达式自动空格 / 关闭到托盘 / 开机自启 / 单实例 / 布局 / 恢复内容 / 变量设置 / 帮助 / 关于</td></tr>
+      <tr><td>左键三连击</td><td>清空全部内容（等同 <kbd>Ctrl</kbd>+<kbd>D</kbd>）</td></tr>
+      <tr><td><strong>双击文本区任意 = 结果</strong></td><td><strong>亮点功能：</strong>复制被双击位置的计算结果，精准到每一步，告别手动框选。同时避免双击误触选中（双击被复制操作接管，不会意外高亮单词）</td></tr>
+      <tr><td>双击状态栏左区结果</td><td>复制当前计算结果到剪贴板</td></tr>
+      <tr><td>双击状态栏分节/复制/实时/续算/置顶</td><td>切换对应功能开关</td></tr>
+      <tr><td>单击状态栏 ¥</td><td>打开金额转换窗口</td></tr>
+      <tr><td>单击状态栏 ⚙</td><td>自定义各标签显示与隐藏</td></tr>
+      <tr><td>单击状态栏 ☷</td><td>展开/收起计算历史面板</td></tr>
+      <tr><td>右键菜单 → 帮助和关于…</td><td>查看帮助手册、版本信息、署名及微信公众号二维码</td></tr>
+      <tr><td>单击文本末尾空白区</td><td>末行非空时自动插入新行</td></tr>
+    </tbody>
+  </table>
+
+</div>
+<div class="section" id="sec-appendix">
+<h2>七、附录</h2>
+
+  <h3 id="sec-appendix-1">常见问题</h3>
+  <details><summary>支持哪些运算符？</summary><div>支持加(+)、减(-)、乘(* 或 ×)、除(/ 或 ÷)、幂(^)、括号()、百分比(%)。其中 * 和 / 会自动替换为 × 和 ÷ 进行视觉美化，不影响计算。百分比如 200×5% 会自动替换为 200×(5/100)。幂运算有限制：小数指数要求底数和指数均非负；整数指数上限 ±1000，底数大于 1 时指数上限 300。</div></details>
+  <details><summary>为什么只支持基本的四则运算及幂运算？</summary><div>TextCalc 秉持「不求大而全，只做小而专，把小事做到极致」的理念，定位为轻量文本式计算器——加减乘除、百分比、幂运算足以覆盖财务对账、报价核算、数据汇总等日常高频场景。精简的运算符集保证了语法简洁、上手零门槛；遇到三角函数、对数等复杂数学问题，建议配合专业工具使用。</div></details>
+  <details><summary>如何重置为默认设置？</summary><div>关闭软件后删除与 <code>TextCalc.exe</code> 同目录下的 <code>TextCalc.ini</code> 和 <code>History.json</code>，重启即恢复全部默认值。外观设置对话框中也有「恢复」按钮，可一键将所有外观选项恢复为出厂默认值；也可通过右键菜单逐项调整。</div></details>
+  <details><summary>一键求和 (Ctrl+S) 没反应？</summary><div>求和只累加行末尾带 <code>= 结果</code> 的行。请确保每行末尾有等号结果（如 <code>= 1,000</code>），无等号结果的行会被跳过。若所有行都无效则静默忽略。<br>提示：<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd> 同样可触发一键求和。</div></details>
+  <details><summary>能增加 X、Y、Z 以外的变量吗？</summary><div>目前仅支持 X、Y、Z 三个变量，满足绝大多数分段计算场景。如需管理更多中间值，建议在文本中保留相应的计算行作为记录。</div></details>
+  <details><summary>如何查看和复用之前的计算？</summary><div>点击状态栏 ☷ 标签展开底部历史面板，面板显示最近 8 条（共保留 200 条，可滚轮滚动查看更多）。单击某条记录即可将其表达式插入当前光标位置继续计算，右键可复制该条结果。</div></details>
+  <details><summary>关闭窗口为什么没有退出程序？</summary><div>默认行为是「关闭到托盘」：窗口隐藏，程序仍在运行，任务栏通知区域显示图标（左键单击恢复，右键可退出）。若需点击 ✕ 直接退出程序，请在右键菜单取消勾选「关闭到托盘」。</div></details>
+  <details><summary>双击程序打不开第二个窗口？</summary><div>默认启用了单实例运行——再次启动会激活已有窗口而非打开新窗口。如需同时运行多个实例，请在右键菜单取消勾选「只允许打开一个窗口」，下次启动生效。</div></details>
+  <details><summary>窗口消失了或移出屏幕怎么办？</summary><div>关闭软件 → 删除 <code>TextCalc.ini</code> → 重新启动，窗口将还原到默认位置和透明度。建议通过软件界面调节窗口设置，避免手动编辑配置文件。</div></details>
+  <details><summary>杀毒软件报毒怎么办？</summary><div>v3.4 起采用 Nuitka 编译器将 Python 源码转为 C 并编译为原生 EXE，同时弃用了 UPX 压缩壳（误报高发诱因）。如仍被拦截，请将 TextCalc 添加至杀毒软件白名单。软件完全免费，无任何恶意行为。</div></details>
+
+
+  <h3 id="sec-appendix-2">获取与反馈</h3>
+  <table><thead><tr><th>渠道</th><th>信息</th></tr></thead>
+    <tbody>
+      <tr><td>🌐 <strong>蓝奏网盘</strong></td><td><a href="https://hexin365.lanzouq.com/b019vr39eb" target="_blank">hexin365.lanzouq.com/b019vr39eb</a>（密码：Hexin）</td></tr>
+      <tr><td><strong>当前版本</strong></td><td>v3.6（2026年8月更新）</td></tr>
+      <tr><td>💻 <strong>支持平台</strong></td><td>Windows 7 / 10 / 11（32位 + 64位）</td></tr>
+      <tr><td>✨ <strong>软件性质</strong></td><td>免费 · 免安装 · 即开即用 · 无广告 · 无捆绑</td></tr>
+    </tbody>
+  </table>
+  
+  <div class="tip">
+    <span class="tip-icon">💬</span>
+    <div>软件持续优化迭代中。如有 Bug 反馈或功能建议，欢迎通过微信公众号 <strong>Hexin365</strong> 留言，感谢支持！</div>
+  </div>
+
+
+</div>
+<div class="footer">
+  本文档基于 TextCalc v3.6 版本编写 &nbsp;·&nbsp; 功能更新请以公众号最新公告为准<br>
+  © 2026 Hexin &nbsp;·&nbsp; 按 <kbd>F1</kbd> 随时打开本帮助
+</div>
+</main>
+</div>
+
+<button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// 进度条
+window.addEventListener('scroll', function() {
+  const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+  document.getElementById('progress').style.width = progress + '%';
+});
+
+// 导航栏阴影
+window.addEventListener('scroll', function() {
+  const nav = document.getElementById('navbar');
+  if (window.scrollY > 10) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+});
+
+// 回到顶部按钮
+window.addEventListener('scroll', function() {
+  const btt = document.getElementById('btt');
+  if (window.scrollY > 400) {
+    btt.classList.add('visible');
+  } else {
+    btt.classList.remove('visible');
+  }
+});
+
+// 目录折叠
+document.querySelectorAll('.toc-toggle').forEach(toggle => {
+  toggle.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const parent = this.parentElement;
+    parent.classList.toggle('collapsed');
+  });
+});
+
+// 目录高亮
+const sections = document.querySelectorAll('.section[id]');
+const tocLinks = document.querySelectorAll('.toc a');
+
+window.addEventListener('scroll', function() {
+  const allTargets = [];
+  sections.forEach(section => {
+    allTargets.push({ id: section.getAttribute('id'), top: section.offsetTop });
+  });
+  document.querySelectorAll('h3[id]').forEach(h3 => {
+    allTargets.push({ id: h3.getAttribute('id'), top: h3.offsetTop });
+  });
+  allTargets.sort((a, b) => a.top - b.top);
+
+  let current = '';
+  allTargets.forEach(t => {
+    if (window.scrollY >= t.top - 100) {
+      current = t.id;
+    }
+  });
+
+  tocLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) {
+      link.classList.add('active');
+    }
+  });
+});
+
+// 平滑滚动到锚点时偏移导航栏高度
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      const offset = 80;
+      const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+    }
+  });
+});
+
+// 章节滚动入场（尊重 prefers-reduced-motion，JS 异常时内容直接可见）
+(function initReveal() {
+  const els = document.querySelectorAll('.section');
+  if (!els.length || !('IntersectionObserver' in window) ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  els.forEach(el => el.classList.add('js-reveal'));
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        en.target.classList.add('revealed');
+        obs.unobserve(en.target);
+      }
+    });
+  }, { threshold: 0.06 });
+  els.forEach(el => obs.observe(el));
+})();
+
+// 代码块窗口化装饰 + 一键复制
+document.querySelectorAll('pre').forEach(pre => {
+  const codeText = pre.textContent.trim() + '\n';
+  const bar = document.createElement('div');
+  bar.className = 'pre-bar';
+  const dots = document.createElement('span');
+  dots.className = 'pre-dots';
+  dots.innerHTML = '<span class="pre-dot r"></span><span class="pre-dot y"></span><span class="pre-dot g"></span>';
+  const label = document.createElement('span');
+  label.className = 'pre-label';
+  label.textContent = '示例';
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'pre-copy';
+  btn.textContent = '复制';
+  btn.addEventListener('click', function() {
+    function done() {
+      btn.textContent = '已复制 ✓';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = '复制'; btn.classList.remove('copied'); }, 1600);
+    }
+    function fallbackCopy() {
+      const ta = document.createElement('textarea');
+      ta.value = codeText;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(codeText).then(done).catch(fallbackCopy);
+    } else {
+      fallbackCopy();
+    }
+  });
+  bar.appendChild(dots);
+  bar.appendChild(label);
+  bar.appendChild(btn);
+  pre.classList.add('has-bar');
+  pre.prepend(bar);
+});
+</script>
+
+</body>
+
+</html>
