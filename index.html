@@ -24,8 +24,8 @@
       "price": "0",
       "priceCurrency": "CNY"
     },
-    "softwareVersion": "3.6",
-    "datePublished": "2026-08",
+    "softwareVersion": "3.7",
+    "datePublished": "2026-09",
     "author": {
       "@type": "Person",
       "name": "Hexin"
@@ -332,6 +332,11 @@
       padding: 1px 6px; font-family: var(--font-mono); font-size: 0.88em;
       color: var(--primary); white-space: nowrap;
     }
+    kbd {
+      display: inline-block; border: 1px solid var(--border); border-bottom-width: 2px;
+      background: var(--bg); padding: 1px 7px; font-family: var(--font-mono);
+      font-size: 0.86em; color: var(--text); white-space: nowrap;
+    }
     .feature-card .tag-new {
       position: absolute; top: 16px; right: 16px;
       background: var(--grad-accent); color: white; font-size: 11px; font-weight: 700;
@@ -633,7 +638,7 @@
   <div class="hero-content animate">
     <div class="hero-badge">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
-      v3.6 正式发布 · 2026年8月更新
+      v3.7 正式发布 · 2026年9月更新
     </div>
     <h1>TextCalc<br><span class="grad">文本表达式计算器</span></h1>
     <p class="hero-subtitle">
@@ -642,7 +647,7 @@
     <div class="hero-btns">
       <button class="btn-primary" onclick="document.getElementById('download').scrollIntoView({behavior:'smooth'})">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
-        立即下载 v3.6
+        立即下载 v3.7
       </button>
       <button class="btn-secondary" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3L12 3z"/></svg>
@@ -662,7 +667,7 @@
     <div class="calc-window">
       <div class="calc-titlebar">
         <div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div>
-        <span>TextCalc v3.6</span>
+        <span>TextCalc v3.7</span>
       </div>
       <div class="calc-body">
         <div class="calc-line">
@@ -789,7 +794,13 @@
       <div class="feature-icon" style="background: rgba(251,146,60,0.1); color: #fb923c;"><span style="font-size: 22px; font-weight: 700; line-height: 1; font-family: 'Consolas', 'Courier New', monospace;">␣</span></div>
       <h3>表达式自动空格</h3>
       <p class="tag-new">v3.6 新功能</p>
-      <p>输入时自动在运算符两侧添加空格，长表达式一眼可读：<code>100 + 200 × 3 = 700</code>。负号与变量后缀智能识别，不乱加空格。</p>
+      <p>输入时自动在运算符两侧添加空格，增加长表达式可读性：<code>100 + 200 × 3 = 700</code>。负号与变量后缀智能识别。</p>
+    </div>
+    <div class="feature-card animate delay-3">
+      <div class="feature-icon" style="background: rgba(99,102,241,0.1); color: #6366f1;"><span style="font-size: 20px; font-weight: 700; line-height: 1; font-family: 'Consolas', 'Courier New', monospace;">F8</span></div>
+      <h3>全局快捷键</h3>
+      <p class="tag-new">v3.7 新功能</p>
+      <p>最小化到托盘后，单击 <kbd>F8</kbd> 即刻唤起窗口，再按一键收起——单手盲按，全程不碰鼠标。支持自定义任意组合键，被占用时自动提示。</p>
     </div>
   </div>
 </section>
@@ -899,18 +910,32 @@
 <section class="section" id="versions">
   <div class="section-header animate">
     <h2>版本<em>演进</em></h2>
-    <p>从 1.0 到 3.6，每一次升级都源于真实用户反馈</p>
+    <p>从 1.0 到 3.7，每一次升级都源于真实用户反馈</p>
   </div>
   <div class="timeline">
     <div class="timeline-item current animate delay-1">
       <div class="timeline-header">
+        <span class="timeline-version">v3.7</span>
+        <span class="timeline-date">2026年9月9日</span>
+      </div>
+      <div class="timeline-content">
+        <h4>全局快捷键 · 高分屏显示优化</h4>
+        <ul>
+          <li>新增全局快捷键（默认 F8）：托盘最小化后单击唤起、再按收起，单手盲按全程不碰鼠标</li>
+          <li>托盘右键菜单新增「设置快捷键…」，可自定义任意组合键：点按即改键、停用⇄启用、恢复默认</li>
+          <li>完善了对 Windows 高分辨率屏幕的适配机制，修复了特定缩放比例下字体模糊和控件错位的问题，提升了视觉体验。</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeline-item animate delay-2">
+      <div class="timeline-header">
         <span class="timeline-version">v3.6</span>
-        <span class="timeline-date">2026年8月14日</span>
+        <span class="timeline-date">2026年9月1日</span>
       </div>
       <div class="timeline-content">
         <h4>表达式自动空格 · 资源内嵌 · 多项稳定性修复</h4>
         <ul>
-          <li>新增表达式自动空格（右键菜单切换），运算符两侧自动加空格，长式更易读</li>
+          <li>新增表达式自动空格（右键菜单切换），运算符两侧自动加空格，提升表达式可读性</li>
           <li>修复托盘图标偶尔消失，Explorer 重启后自动恢复</li>
           <li>修复中文右括号无法自动转换、灰色结果标记被刷新覆盖</li>
           <li>修复自动空格 + 链式表达式光标错乱、插入数字后不重算</li>
@@ -944,7 +969,7 @@
         <h4>计算历史 · 精准复制 · 关闭到托盘</h4>
         <ul>
           <li>底部嵌入式计算历史面板，持久化存储200条记录</li>
-          <li>双击任意 =结果 精准复制该步结果</li>
+          <li>双击任意 =结果 精准快捷复制该步结果</li>
           <li>关闭到系统托盘，后台运行随时唤醒</li>
           <li>Nuitka打包+弃用UPX，显著降低杀毒软件误报</li>
           <li>括号自动配对、单实例运行、选中优化</li>
@@ -1036,7 +1061,7 @@
     <div class="feature-card animate delay-3">
       <div class="feature-icon" style="background: rgba(245,158,11,0.1); color: #f59e0b;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01"/><path d="M10 10h.01"/><path d="M14 10h.01"/><path d="M18 10h.01"/><path d="M6 14h.01"/><path d="M18 14h.01"/><path d="M9 14h6"/></svg></div>
       <h3>快捷键丰富</h3>
-      <p>Ctrl+S求和、Ctrl+D清空、Ctrl+Z撤销、Ctrl+滚轮缩放字体、Ctrl+Shift+滚轮调透明度、F1帮助手册...效率操作一手掌握。</p>
+      <p>Ctrl+S求和、Ctrl+D清空、Ctrl+Z撤销、Ctrl+滚轮缩放字体、Ctrl+Shift+滚轮调透明度、F1帮助手册、F8呼出/收起窗口...效率操作一手掌握。</p>
     </div>
   </div>
 </section>
@@ -1116,7 +1141,16 @@
         <span class="icon">▼</span>
       </button>
       <div class="faq-answer">
-        <p>默认启用了单实例运行——再次启动会激活已有窗口而非打开新窗口。如需同时运行多个实例，请在右键菜单取消勾选「只允许打开一个窗口」，下次启动生效。</p>
+        <p>默认启用了单实例运行——再次启动会激活已有窗口而非打开新窗口。如需同时运行多个实例，请在右键菜单取消勾选「只允许运行一个实例」，下次启动生效。</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button type="button" class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+        按 F8 没有反应？
+        <span class="icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        <p>两种可能：① 快捷键已被其他软件占用——启动或保存设置时会有托盘气泡提示，请在托盘右键菜单「设置快捷键…」中更换一个组合键；② 快捷键已被停用——在同一设置窗口点击「启用」并保存即可。</p>
       </div>
     </div>
     <div class="faq-item">
@@ -1147,10 +1181,14 @@
     <div class="download-btns">
       <a class="btn" href="https://hexin365.lanzouq.com/b019vr39eb" target="_blank">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
-        下载 v3.6 (密码：Hexin)
+        下载 v3.7 (密码：Hexin)
       </a>
-      <button class="btn btn-alt" onclick="showModal('关注公众号','微信公众号：Hexin365，获取最新版本、使用技巧与问题反馈支持。','💬')">
-        <span>📱</span> 关注公众号获取更新
+      <button class="btn btn-alt" onclick="showModal('关注公众号','微信公众号：Hexin365，获取最新版本、使用技巧与问题反馈支持。','💬', true)" style="display:flex;align-items:center;gap:14px;padding:8px 22px 8px 8px;">
+        <img class="qr-wechat" alt="微信公众号 Hexin365 二维码" style="display:block;width:76px;height:76px;border:1px solid rgba(255,255,255,0.35);background:#fff;">
+        <span style="text-align:left;line-height:1.5;">
+          <strong style="font-size:16px;">扫码关注公众号</strong><br>
+          <small style="opacity:0.85;">Hexin365 · 更新 / 技巧 / 反馈</small>
+        </span>
       </button>
     </div>
     <div class="download-info">
@@ -1182,13 +1220,13 @@
       <h4>支持</h4>
       <a href="#faq">常见问题</a>
       <a href="help.html" target="_blank" rel="noopener">帮助文档</a>
-      <a href="#" onclick="showModal('反馈建议','欢迎通过微信公众号 Hexin365 反馈问题与建议，作者的每一次更新都源于真实用户反馈。','💬')">反馈建议</a>
+      <a href="#" onclick="showModal('反馈建议','欢迎通过微信公众号 Hexin365 反馈问题与建议，作者的每一次更新都源于真实用户反馈。','💬', true)">反馈建议</a>
     </div>
     <div class="footer-col">
       <h4>关于</h4>
       <a href="#" onclick="showModal('关于作者','TextCalc 由作者 Hexin 根据财务工作需求业余开发，秉持「不求大而全，只做小而专」的理念持续打磨。','👤')">关于作者</a>
       <a href="https://hexin365.lanzouq.com/b019vr39eb" target="_blank">下载地址</a>
-      <a href="#" onclick="showModal('关注我们','微信公众号：Hexin365，获取最新版本与使用技巧。','📣')">关注我们</a>
+      <a href="#" onclick="showModal('关注我们','微信公众号：Hexin365，获取最新版本与使用技巧。','📣', true)">关注我们</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -1205,6 +1243,7 @@
     <div class="modal-icon" id="modalIcon">💡</div>
     <h3 id="modalTitle"></h3>
     <p id="modalText"></p>
+    <img id="modalQr" class="qr-wechat" alt="微信公众号 Hexin365 二维码" style="display:none;width:150px;height:150px;margin:4px auto 12px;border:1px solid var(--border);padding:6px;background:#fff;">
     <button class="modal-btn" onclick="closeModal()">知道了</button>
   </div>
 </div>
@@ -1263,10 +1302,14 @@
   }
 
   // 模态框
-  function showModal(title, text, icon) {
+  const QR_WECHAT_SRC = "data:image/gif;base64,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";
+  document.querySelectorAll("img.qr-wechat").forEach(function (img) { img.src = QR_WECHAT_SRC; });
+
+  function showModal(title, text, icon, qr) {
     document.getElementById('modalTitle').textContent = title;
     document.getElementById('modalText').textContent = text;
     document.getElementById('modalIcon').textContent = icon || '💡';
+    document.getElementById('modalQr').style.display = qr ? 'block' : 'none';
     document.getElementById('modal').classList.add('show');
   }
   function closeModal() {
